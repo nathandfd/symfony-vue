@@ -1,0 +1,65 @@
+version: "3.8"
+services:
+
+  db:
+    image: mysql
+    container_name: db_docker_vue
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_USER: 'symfony'
+      MYSQL_PASSWORD: 'symfony'
+      MYSQL_DATABASE: 'symfony'
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    networks:
+      - dev
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin_docker_vue
+    depends_on:
+      - db
+    ports:
+      - 8082:80
+    environment:
+      PMA_HOST: db
+    networks:
+      - dev
+
+  maildev:
+    image: maildev/maildev
+    container_name: maildev_docker_vue
+    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+    ports:
+      - "8081:80"
+    networks:
+      - dev
+
+  www:
+    build: docker/php
+    container_name: www_docker_vue
+    ports:
+      - "8083:80"
+    volumes:
+      - ./docker/php/vhosts:/etc/apache2/sites-enabled
+      - ./symfony:/var/www
+    networks:
+      - dev
+
+  vue:
+    build: docker/node
+    container_name: node_docker_vue
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./vuejs:/app
+    networks:
+      - dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+networks:
+  dev:
+
+volumes:
+  db-data:
