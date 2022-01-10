@@ -2,7 +2,7 @@
   <div class="about">
     <h1>Mes messages</h1>
     <ul class="message-list" v-if="messages">
-      <li v-for="data in messages" :key="data.id">
+      <li v-for="data in messages" :key="data.id" class="list-item">
         <div class="message-container">
           <div v-bind:class="['color-tag',data.category.color]"></div>
           <h2>{{data.title}} - {{ moment(data.createdAt).format('LLLL') }}</h2>

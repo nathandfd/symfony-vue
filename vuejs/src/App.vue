@@ -1,13 +1,7 @@
 <template>
   <div id="app">
     <div id="nav" v-if="userData.userData">
-      <router-link to="/">Home</router-link>
-      |
-      <router-link to="/categories">Catégories</router-link>
-      |
-      <router-link to="/messages">Messages</router-link>
-      |
-      <router-link to="/recherche">Recherche</router-link>
+      <router-link to="/">Conversations</router-link>
       |
       <router-link to="/user-messages">Mes messages</router-link>
       |
@@ -22,7 +16,7 @@ export default {
   name: 'App',
   data: () => {
     return {
-      userData:localStorage
+      userData:localStorage,
     }
   },
 
@@ -30,6 +24,7 @@ export default {
 </script>
 
 <style>
+@import url("./assets/css/style.css");
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -42,7 +37,7 @@ export default {
   padding: 30px;
 }
 
-#nav a {
+a {
   font-weight: bold;
   color: #2c3e50;
 }

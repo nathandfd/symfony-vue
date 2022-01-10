@@ -1,13 +1,30 @@
-.message-container{
-    border: 1px black solid;
+/*.message-container{*/
+/*    border: 1px black solid;*/
+/*    width: max-content;*/
+/*    margin: 0 auto 2rem auto;*/
+/*    padding: 1rem 2rem;*/
+/*    position: relative;*/
+/*}*/
+
+/*.message-list{*/
+/*    list-style: none;*/
+/*}*/
+
+.list-item{
+    box-shadow: 0px 5px 10px -1px rgba(0,0,0,0.5);
+    padding: 3rem 2rem;
     width: max-content;
-    margin: 0 auto 2rem auto;
-    padding: 1rem 2rem;
+    list-style: none;
+    margin: 2rem auto;
+    border-radius: 8px;
     position: relative;
 }
 
-.message-list{
-    list-style: none;
+ul.message-list{
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
 }
 
 .color-tag{
@@ -17,12 +34,5 @@
     width: 10px;
     height: 10px;
     border-radius: 100%;
-}
-
-.color-tag.blue{
-    background-color: blue;
-}
-
-.color-tag.red{
-    background-color: red;
+    background-color: var(--category-color);
 }

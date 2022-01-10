@@ -14,7 +14,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=MessageRepository::class)
  */
-#[ApiResource()]
+#[ApiResource(
+    normalizationContext: [
+        'groups'=>'read2'
+    ]
+)]
 #[ApiFilter(SearchFilter::class, properties: ['title' => 'partial', 'message' => 'partial'])]
 class Message
 {
@@ -22,25 +26,25 @@ class Message
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read"})
+     * @Groups({"read", "read2"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"read"})
+     * @Groups({"read", "read2"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="datetime_immutable")
-     * @Groups({"read"})
+     * @Groups({"read", "read2"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"read"})
+     * @Groups({"read", "read2"})
      */
     private $message;
 
@@ -48,12 +52,13 @@ class Message
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="messages")
      * @ORM\JoinColumn(nullable=false)
      * @ApiProperty(readableLink=true, writableLink=true)
-     * @Groups({"read"})
+     * @Groups({"read", "read2"})
      */
     private $category;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messages")
+     * @Groups({"read2"})
      */
     public $user;
 
